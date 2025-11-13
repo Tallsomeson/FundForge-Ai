@@ -18,3 +18,29 @@ View your app in AI Studio: https://ai.studio/apps/temp/1
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Architecture
+
+```mermaid
+graph TD
+  subgraph Client
+    A[React App\nApp.tsx]
+    B[Router\nAuthenticatedApp]
+    C[Feature Pages\npages/*]
+    D[UI Components\ncomponents/*]
+  end
+
+  subgraph Data
+    E[Mock Data\ncomponents/**/mockData.ts]
+  end
+
+  subgraph Services
+    F[Gemini Service\nservices/geminiService.ts]
+    G[@google/genai API]
+  end
+
+  A --> B --> C
+  C --> D
+  C -->|needs sample content| E
+  C -->|AI requests| F --> G
+```
